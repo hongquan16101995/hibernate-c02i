@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ListProduct</title>
+</head>
+<body>
+<div th:replace="/layout::title"></div>
+<a th:href="@{/products/create}">Add new products</a>
+<p th:if="${products.isEmpty()}">Product not exists!!!</p>
+<table th:if="${!products.isEmpty()}" border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Image</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="p, ps : ${products}">
+        <td th:text="${ps.count}"></td>
+        <td th:text="${p.getName()}"></td>
+        <td th:text="${p.getPrice()}"></td>
+        <td th:text="${p.getQuantity()}"></td>
+        <td><img th:src="@{'/image/' + ${p.getImage()}}" src="" alt=""
+                 style="width: 150px; height: 150px"></td>
+        <td>
+            <button>
+                <a th:href="@{/products/update/{id}(id = ${p.getId()})}">Update</a>
+            </button>
+        </td>
+        <td>
+            <button>
+                <a th:href="@{/products/delete/__${p.getId()}__}">Delete</a>
+            </button>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
